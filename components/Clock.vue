@@ -64,7 +64,6 @@ const update = (() => {
     clockTextRendered.value = `Countdown begins in ${formatDuration(duration)}!`
   }
 
-  console.log(clockTextRendered.value);
   updateBar()
 })
 
