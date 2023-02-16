@@ -26,11 +26,17 @@ const barProps = ref({
 })
 const startDate = new Date(props.startDate);
 const endDate = new Date(props.endDate);
+const now = new Date();
+let future = false;
 let timer: number | undefined;
 const bar = ref<HTMLElement | null>(null) // Can't use value here for some reason, it breaks lower down
 const fillBar = ref<HTMLElement | null>(null)
 let fillText = ref('');
 let clockTextRendered = ref('Loading the crazy...')
+
+if (now < startDate) {
+  future = true;
+}
 
 const tickTock = (() => {
   update()
@@ -40,11 +46,25 @@ const tickTock = (() => {
 });
 
 const update = (() => {
-  const duration = intervalToDuration({
+  let duration = intervalToDuration({
     start: new Date(),
     end: endDate
   })
+
+  if (future) {
+    duration = intervalToDuration({
+      start: new Date(),
+      end: startDate
+    })
+  }
+
   clockTextRendered.value = `${formatDuration(duration)} remaining!`
+
+  if (future) {
+    clockTextRendered.value = `Countdown begins in ${formatDuration(duration)}!`
+  }
+
+  console.log(clockTextRendered.value);
   updateBar()
 })
 
@@ -61,10 +81,15 @@ const updateBar = (() => {
       startDate,
   );
   const percentage = 100 / daysInMs * (daysInMs - diffInMs)
-  const fillWidth = width / 100 * percentage
+  let fillWidth = width / 100 * percentage
 
   barProps.value.width = `${fillWidth}px`
   fillText.value = `${percentage.toFixed(4)}%`
+
+  if (future) {
+    barProps.value.width = `0px`
+    fillText.value = ``
+  }
 })
 
 onMounted(() => {
