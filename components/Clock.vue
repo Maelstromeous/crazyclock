@@ -4,6 +4,7 @@
       <div ref="fillBar" class="fill" :style="barProps"><span>{{ fillText }}</span></div>
     </div>
     <div class="clockText">{{ clockTextRendered }}</div>
+    <div class="statsText">{{ statsText }}</div>
   </div>
 
 </template>
@@ -33,10 +34,29 @@ const bar = ref<HTMLElement | null>(null) // Can't use value here for some reaso
 const fillBar = ref<HTMLElement | null>(null)
 let fillText = ref('');
 let clockTextRendered = ref('Loading the crazy...')
+let statsText = ref('Stats')
 
 if (now < startDate) {
   future = true;
 }
+
+
+// Stats
+let totalDurationSeconds = (endDate.getTime() - startDate.getTime()) / 1000;
+// Divide seconds into number of hours from the total
+let totalHours = totalDurationSeconds / 3600;
+let totalDays = totalHours / 24;
+let percentPerHour = 100 / totalHours;
+let percentPerDay = percentPerHour * 24;
+
+console.log('percentPerHour', percentPerHour)
+console.log('totalHours', totalHours)
+
+statsText.value = `
+  %age / hour: ${percentPerHour.toFixed(4)}% |
+  %age / day: ${percentPerDay.toFixed(4)}% |
+  Total days: ${totalDays.toFixed(2)}
+`
 
 const tickTock = (() => {
   update()
@@ -57,7 +77,6 @@ const update = (() => {
       end: startDate
     })
   }
-
   clockTextRendered.value = `${formatDuration(duration)} remaining!`
 
   if (future) {
@@ -71,13 +90,13 @@ const updateBar = (() => {
   const width = bar.value?.offsetWidth ?? 0;
 
   const diffInMs = differenceInMilliseconds(
-      endDate,
-      new Date(),
+    endDate,
+    new Date(),
   )
 
   const daysInMs = differenceInMilliseconds(
-      endDate,
-      startDate,
+    endDate,
+    startDate,
   );
   const percentage = 100 / daysInMs * (daysInMs - diffInMs)
   let fillWidth = width / 100 * percentage
@@ -125,5 +144,13 @@ onUnmounted(() => {
   font-weight: bold;
   color: red;
   text-align: center;
+}
+
+.statsText {
+  color: white;
+  font-weight: 300;
+  text-align: center;
+  font-size: 12px;
+  margin-top: 5px;
 }
 </style>
