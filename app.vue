@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h1>CrazyClock!</h1>
-    <Clock :startDate="'2023-02-17 16:05:00'" :endDate="'2023-03-27 18:00:00'"></Clock>
+    <Clock :startDate="'2023-02-17 16:05:00'" :endDate="'2023-03-25 13:30:00'"></Clock>
   </div>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
