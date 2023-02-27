@@ -15,6 +15,7 @@ import {
   intervalToDuration,
   formatDuration,
   differenceInMilliseconds,
+  eachDayOfInterval,
 } from "date-fns";
 
 const props = defineProps<{
@@ -49,9 +50,6 @@ let totalDays = totalHours / 24;
 let percentPerHour = 100 / totalHours;
 let percentPerDay = percentPerHour * 24;
 
-console.log('percentPerHour', percentPerHour)
-console.log('totalHours', totalHours)
-
 statsText.value = `
   %age / hour: ${percentPerHour.toFixed(4)}% |
   %age / day: ${percentPerDay.toFixed(4)}% |
@@ -66,22 +64,29 @@ const tickTock = (() => {
 });
 
 const update = (() => {
+  let options = {
+    format: ['hours', 'minutes', 'seconds']
+  };
+  let prefix = '';
   let duration = intervalToDuration({
     start: new Date(),
     end: endDate
   })
 
   if (future) {
+    prefix = 'Countdown begins in: ';
     duration = intervalToDuration({
       start: new Date(),
       end: startDate
     })
   }
-  clockTextRendered.value = `${formatDuration(duration)} remaining!`
 
-  if (future) {
-    clockTextRendered.value = `Countdown begins in ${formatDuration(duration)}!`
-  }
+  // Handle weird months oddity into days instead of more than 30d
+  // To properly count literally the number of days, we have to make it an interval and loop it.
+  const intervalDays = eachDayOfInterval({ start: new Date(), end: endDate });
+  let totalDays = intervalDays.length - 2; // -1 for the array length, and another -1 because it counts whole days not a partial day
+
+  clockTextRendered.value = `${prefix} ${totalDays} days ${formatDuration(duration, options)} remaining!`
 
   updateBar()
 })
