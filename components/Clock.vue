@@ -68,25 +68,27 @@ const update = (() => {
     format: ['hours', 'minutes', 'seconds']
   };
   let prefix = '';
-  let duration = intervalToDuration({
-    start: new Date(),
-    end: endDate
-  })
+  let suffix = ' remaining!';
+  let dateObjects = {start: new Date(), end: endDate}
 
   if (future) {
+    dateObjects = {start: new Date(), end: startDate};
     prefix = 'Countdown begins in: ';
-    duration = intervalToDuration({
-      start: new Date(),
-      end: startDate
-    })
+    suffix = '';
   }
 
+  let duration = intervalToDuration(dateObjects)
+
   // Handle weird months oddity into days instead of more than 30d
-  // To properly count literally the number of days, we have to make it an interval and loop it.
-  const intervalDays = eachDayOfInterval({ start: new Date(), end: endDate });
+  // Create an array filled with each day between the two dates, then count it's length to get the exact number of days.
+  const intervalDays = eachDayOfInterval(dateObjects);
   let totalDays = intervalDays.length - 2; // -1 for the array length, and another -1 because it counts whole days not a partial day
 
-  clockTextRendered.value = `${prefix} ${totalDays} days ${formatDuration(duration, options)} remaining!`
+  if (totalDays < 0) {
+    totalDays = 0; // Handle < 24h
+  }
+
+  clockTextRendered.value = `${prefix} ${totalDays} days ${formatDuration(duration, options)} ${suffix}`
 
   updateBar()
 })
