@@ -1,5 +1,5 @@
 <template>
-  <div ref="bar" class="bg-black rounded-md mb-2 text-white flex bg-gradient-to-r via-green-600 from-red-600 to-blue-600" style="height: 30px">
+  <div ref="bar" class="bg-black rounded-md mb-2 text-white flex bg-gradient-to-r via-green-600 from-red-600 to-blue-600 mx-4" style="height: 30px">
     <div ref="fillBar" class="h-full flex rounded-tl-md rounded-bl-md border-r-white transition-all ease-out duration-1000" :style="barProps">
       <span class="m-auto">{{ fillText }}</span>
     </div>
@@ -74,8 +74,9 @@ const updateBar = (() => {
     fillText.value = `${barPercentage.toFixed(4)}%`
   }
 
-  barProps.value.width = `${fillWidth}px`
-  blackBarProps.value.width = `${width - fillWidth}px`
+  const blackBarWidth = (width - fillWidth + 1).toFixed(0)
+  barProps.value.width = `${fillWidth.toFixed(0)}px`
+  blackBarProps.value.width = `${blackBarWidth}px`
 
   if (future) {
     barProps.value.width = `0px`
