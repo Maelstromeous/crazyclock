@@ -3,7 +3,7 @@
     <div ref="bar" class="bar">
       <div ref="fillBar" class="fill" :style="barProps"><span>{{ fillText }}</span></div>
     </div>
-    <div class="clockText">{{ clockTextRendered }}</div>
+    <div class="clockText">{{ clockText }}</div>
     <div class="statsText">{{ statsText }}</div>
   </div>
 
@@ -19,17 +19,6 @@ const props = defineProps<{
   endDate: string
 }>()
 
-const description = 'This project is to track the amount of time between two love birds meeting each other next. It brings a whole new level to clock watching!'
-
-useServerSeoMeta({
-  title: 'CrazyClock',
-  ogTitle: 'CrazyClock',
-  description,
-  ogDescription: description,
-  ogImage: 'https://previews.123rf.com/images/kongvector/kongvector1708/kongvector170803424/84740660-crazy-clock-character-cartoon-style-vector-illustration.jpg', // Shameless copyright infringement
-  twitterCard: 'summary_large_image',
-})
-
 const barProps = ref({
   width: '400px'
 })
@@ -40,7 +29,7 @@ let timer: NodeJS.Timer;
 const bar = ref<HTMLElement | null>(null) // Can't use value here for some reason, it breaks lower down
 const fillBar = ref<HTMLElement | null>(null)
 let fillText = ref('');
-let clockTextRendered = ref('Loading the crazy...')
+let clockText = ref('Loading the crazy...')
 let statsText = ref('Stats')
 
 // Stats
@@ -58,11 +47,11 @@ statsText.value = `
 `
 
 const tickTock = (() => {
-  clockTextRendered.value = calculateDateString(startDate, endDate) // Run it on load
+  clockText.value = calculateDateString(startDate, endDate) // Run it on load
   updateBar()
 
   timer = setInterval(() => {
-    clockTextRendered.value = calculateDateString(startDate, endDate)
+    clockText.value = calculateDateString(startDate, endDate)
     updateBar()
   }, 1000)
 });
