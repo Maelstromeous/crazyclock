@@ -15,7 +15,7 @@ export const calculateDateString = ((startDate: Date, endDate: Date, now?: Date)
     format: ['hours', 'minutes', 'seconds']
   };
   let prefix = '';
-  let suffix = ' remaining!';
+  let suffix = ' !';
   let dateObjects = {start: now, end: endDate}
 
   // If the countdown is in the future, swap the end date to be the start date
