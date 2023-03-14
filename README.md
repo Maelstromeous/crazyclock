@@ -17,6 +17,12 @@ npm install
 pnpm install
 ```
 
+You also need node version >16to install the test suite. Install `nvm` and run:
+
+```bash
+nvm install 16
+```
+
 ## Development Server
 
 Start the development server on http://localhost:3000
