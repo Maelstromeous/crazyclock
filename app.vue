@@ -1,12 +1,11 @@
 <template>
-  <div id="app" class="w-full max-w-lg m-auto">
+  <div id="app" class="w-full max-w-lg m-auto px-4">
     <h1 class="text-4xl text-purple-600 my-4 text-center">CrazyClock!</h1>
-    <Clock :startDate="startDate" :endDate="endDate"></Clock>
+    <Clock v-for="clock in clocks" :startDate="clock.startDate" :endDate="clock.endDate"></Clock>
   </div>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
 </template>
 
 <script lang="ts" setup>
@@ -21,12 +20,23 @@ useServerSeoMeta({
   twitterCard: 'summary_large_image',
 })
 
-const startDate = new Date('2023-02-17 16:05:00')
-const endDate = new Date('2023-03-25 13:30:00')
+// array of dates with startDate and endDate as elements
+const clocks = [
+  {
+    startDate: new Date('2023-02-17 16:05:00'),
+    endDate: new Date('2023-03-25 13:30:00')
+  },
+  {
+    startDate: new Date('2023-04-17 18:30:00'),
+    endDate: new Date('2023-05-27 13:30:00')
+  }
+]
+
 </script>
 
 <style lang="scss">
 body {
-  font-family: 'Roboto', serif
+  font-family: 'Roboto', serif;
+  font-weight: 400;
 }
 </style>

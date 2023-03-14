@@ -1,12 +1,18 @@
 <template>
-  <div ref="bar" class="bg-black rounded-md mb-2 text-white flex bg-gradient-to-r via-green-600 from-red-600 to-blue-600 mx-4" style="height: 30px">
-    <div ref="fillBar" class="h-full flex rounded-tl-md rounded-bl-md border-r-white transition-all ease-out duration-1000" :style="barProps">
-      <span class="m-auto">{{ fillText }}</span>
+  <section class="mb-4 pb-2 border-b border-b-gray-600 last-of-type:border-0">
+    <p class="text-center text-white mb-2 text-lg">{{ startDate.toLocaleString()}} to {{ endDate.toLocaleString()}}</p>
+    <div
+      ref="bar"
+      v-if="!future"
+      class="bg-black rounded-md mb-2 text-white flex bg-gradient-to-r via-green-600 from-red-600 to-blue-600" style="height: 30px">
+      <div ref="fillBar" class="h-full flex rounded-tl-md rounded-bl-md border-r-white transition-all ease-out duration-1000" :style="barProps">
+        <span class="m-auto">{{ fillText }}</span>
+      </div>
+      <div ref="blackBar" class="h-full bg-black rounded-tr-md rounded-br-md transition-all ease-out duration-1000" :style="blackBarProps"></div>
     </div>
-    <div ref="blackBar" class="h-full bg-black rounded-tr-md rounded-br-md transition-all ease-out duration-1000" :style="blackBarProps"></div>
-  </div>
-  <div class="text-center text-amber-400 bg-#50">{{ clockText }}</div>
-  <Stats :startDate="startDate" :endDate="endDate"></Stats>
+    <div class="text-center text-amber-400 font-bold">{{ clockText }}</div>
+    <Stats :startDate="startDate" :endDate="endDate"></Stats>
+  </section>
 </template>
 
 <script lang="ts" setup>
@@ -21,14 +27,20 @@ const props = defineProps<{
 
 const barProps = ref({
   width: '0%',
-  borderRight: '2px solid white'
+  borderRight: '0'
 })
 const blackBarProps = ref({
-  width: '100%'
+  width: '100%',
+  borderRadius: '0',
 })
 const startDate = new Date(props.startDate);
 const endDate = new Date(props.endDate);
 let future = false;
+
+if (new Date() < startDate) {
+  future = true;
+}
+
 let timer: NodeJS.Timer;
 const bar = ref<HTMLElement | null>(null) // Can't use value here for some reason, it breaks lower down
 const fillBar = ref<HTMLElement | null>(null)
@@ -40,8 +52,8 @@ const tickTock = (() => {
   clockText.value = calculateDateString(startDate, endDate) // Run it on load
   updateBar()
 
-  // Don't run the timer if the end date is in the past
-  if (endDate < new Date()) {
+  // Don't run the timer if the date is in the past or future
+  if (endDate < new Date() || startDate > new Date()) {
     return
   }
   timer = setInterval(() => {
@@ -68,10 +80,16 @@ const updateBar = (() => {
   if (barPercentage >= 100) {
     fillWidth = width
     fillText.value = 'FINALLY!'
-    barProps.value.borderRight = '0px'
-
   } else {
     fillText.value = `${barPercentage.toFixed(4)}%`
+    barProps.value.borderRight = '2px solid white'
+  }
+
+  if (barPercentage <= 0) {
+    blackBarProps.value.borderRadius = '0.375rem',
+    barProps.value.borderRight = '0px'
+  } else {
+    blackBarProps.value.borderRadius = '0 0.375rem 0.375rem 0'
   }
 
   const blackBarWidth = (width - fillWidth + 1).toFixed(0)

@@ -1,6 +1,6 @@
 <template>
   <div class="text-white font-light">
-    <table class="table-fixed w-1/2">
+    <table class="table-fixed w-full" style="max-width: 250px;">
       <thead>
         <tr>
           <th>Stat</th>
