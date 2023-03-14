@@ -79,23 +79,14 @@ test('Days should be consistent before and after midnight', () => {
     now = new Date('2023-01-02 01:00:00')
     expect(calculateDateString(startDate, endDate, now)).toBe('3 days 11 hours remaining!')
 })
-test('Expected number of days return before midnight', () => {
-    startDate = new Date('2023-03-01 23:00:00');
-    endDate = new Date('2023-03-05 23:00:05');
-    const now = new Date('2023-03-01 23:00:00');
-    expect(calculateDateString(startDate, endDate, now)).toBe('4 days 5 seconds remaining!')
-})
-test('Expected number of days return after midnight <24h', () => {
-    startDate = new Date('2023-03-01 01:00:00');
-    endDate = new Date('2023-03-02 12:00:00');
-    const now = new Date('2023-03-01 23:00:00');
+test('Expected number of hours return before and after midnight when <24h', () => {
+    startDate = new Date('2023-01-01 00:00:00');
+    endDate = new Date('2023-01-02 12:00:00');
+    now = new Date('2023-01-01 23:00:00');
     expect(calculateDateString(startDate, endDate, now)).toBe('13 hours remaining!')
-})
-test('Expected number of days return after midnight >24h', () => {
-    startDate = new Date('2023-03-01 01:00:00');
-    endDate = new Date('2023-03-05 12:00:00');
-    const now = new Date('2023-03-01 23:00:00');
-    expect(calculateDateString(startDate, endDate, now)).toBe('3 days 13 hours remaining!')
+
+    now = new Date('2023-01-02 01:00:00');
+    expect(calculateDateString(startDate, endDate, now)).toBe('11 hours remaining!')
 })
 
 // Days differences over the course of differing month durations
