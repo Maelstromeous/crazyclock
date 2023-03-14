@@ -11,7 +11,7 @@ export const calculateDateString = ((startDate: Date, endDate: Date, now?: Date)
   }
 
   const startsInFuture = now < startDate;
-  let options = {
+  const options = {
     format: ['hours', 'minutes', 'seconds']
   };
   let prefix = '';
@@ -26,7 +26,7 @@ export const calculateDateString = ((startDate: Date, endDate: Date, now?: Date)
   }
 
   const days = totalDays(dateObjects.start, dateObjects.end)
-  let duration = intervalToDuration(dateObjects)
+  const duration = intervalToDuration(dateObjects)
 
   if (days === 1) {
     prefix = `${prefix}1 day `
@@ -40,7 +40,7 @@ export const calculateDateString = ((startDate: Date, endDate: Date, now?: Date)
 })
 
 export const totalDays = ((start: Date, end: Date): number => {
-  let duration = intervalToDuration({start, end})
+  const duration = intervalToDuration({start, end})
   let days = duration.days ?? 0
 
   // If we're over more than what is expected to be a "month" which varies in language, we need to start counting the actual number of days and performing logic... sigh
