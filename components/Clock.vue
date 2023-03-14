@@ -11,12 +11,8 @@
 
 <script lang="ts" setup>
 import {onMounted, onUnmounted, ref} from "#imports";
-import {
-  intervalToDuration,
-  formatDuration,
-  differenceInMilliseconds,
-  eachDayOfInterval,
-} from "date-fns";
+import {differenceInMilliseconds} from "date-fns";
+import {calculateDateString} from "~/lib/DateCalculations";
 
 const props = defineProps<{
   startDate: string
@@ -28,19 +24,13 @@ const barProps = ref({
 })
 const startDate = new Date(props.startDate);
 const endDate = new Date(props.endDate);
-const now = new Date();
 let future = false;
-let timer: number | undefined;
+let timer: NodeJS.Timer;
 const bar = ref<HTMLElement | null>(null) // Can't use value here for some reason, it breaks lower down
 const fillBar = ref<HTMLElement | null>(null)
 let fillText = ref('');
 let clockTextRendered = ref('Loading the crazy...')
 let statsText = ref('Stats')
-
-if (now < startDate) {
-  future = true;
-}
-
 
 // Stats
 let totalDurationSeconds = (endDate.getTime() - startDate.getTime()) / 1000;
@@ -57,41 +47,14 @@ statsText.value = `
 `
 
 const tickTock = (() => {
-  update()
+  clockTextRendered.value = calculateDateString(startDate, endDate) // Run it on load
+  updateBar()
+
   timer = setInterval(() => {
-    update()
+    clockTextRendered.value = calculateDateString(startDate, endDate)
+    updateBar()
   }, 1000)
 });
-
-const update = (() => {
-  let options = {
-    format: ['hours', 'minutes', 'seconds']
-  };
-  let prefix = '';
-  let suffix = ' remaining!';
-  let dateObjects = {start: new Date(), end: endDate}
-
-  if (future) {
-    dateObjects = {start: new Date(), end: startDate};
-    prefix = 'Countdown begins in: ';
-    suffix = '';
-  }
-
-  let duration = intervalToDuration(dateObjects)
-
-  // Handle weird months oddity into days instead of more than 30d
-  // Create an array filled with each day between the two dates, then count it's length to get the exact number of days.
-  const intervalDays = eachDayOfInterval(dateObjects);
-  let totalDays = intervalDays.length - 2; // -1 for the array length, and another -1 because it counts whole days not a partial day
-
-  if (totalDays < 0) {
-    totalDays = 0; // Handle < 24h
-  }
-
-  clockTextRendered.value = `${prefix} ${totalDays} days ${formatDuration(duration, options)} ${suffix}`
-
-  updateBar()
-})
 
 const updateBar = (() => {
   const width = bar.value?.offsetWidth ?? 0;
