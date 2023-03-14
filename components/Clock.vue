@@ -1,12 +1,12 @@
 <template>
-  <div id="app">
-    <div ref="bar" class="bar">
-      <div ref="fillBar" class="fill" :style="barProps"><span>{{ fillText }}</span></div>
+  <div ref="bar" class="bg-black rounded-md mb-2 text-white flex bg-gradient-to-r via-green-600 from-red-600 to-blue-600" style="height: 30px">
+    <div ref="fillBar" class="h-full flex rounded-tl-md rounded-bl-md border-r-white transition-all ease-out duration-1000" :style="barProps">
+      <span class="m-auto">{{ fillText }}</span>
     </div>
-    <div class="clockText">{{ clockText }}</div>
-    <div class="statsText">{{ statsText }}</div>
+    <div ref="blackBar" class="h-full bg-black rounded-tr-md rounded-br-md transition-all ease-out duration-1000" :style="blackBarProps"></div>
   </div>
-
+  <div class="text-center text-amber-400 bg-#50">{{ clockText }}</div>
+  <Stats :startDate="startDate" :endDate="endDate"></Stats>
 </template>
 
 <script lang="ts" setup>
@@ -15,12 +15,16 @@ import {differenceInMilliseconds} from "date-fns";
 import {calculateDateString} from "~/lib/DateCalculations";
 
 const props = defineProps<{
-  startDate: string
-  endDate: string
+  startDate: Date
+  endDate: Date
 }>()
 
 const barProps = ref({
-  width: '400px'
+  width: '0%',
+  borderRight: '2px solid white'
+})
+const blackBarProps = ref({
+  width: '100%'
 })
 const startDate = new Date(props.startDate);
 const endDate = new Date(props.endDate);
@@ -30,26 +34,16 @@ const bar = ref<HTMLElement | null>(null) // Can't use value here for some reaso
 const fillBar = ref<HTMLElement | null>(null)
 let fillText = ref('');
 let clockText = ref('Loading the crazy...')
-let statsText = ref('Stats')
-
-// Stats
-let totalDurationSeconds = (endDate.getTime() - startDate.getTime()) / 1000;
-// Divide seconds into number of hours from the total
-let totalHours = totalDurationSeconds / 3600;
-let totalDays = totalHours / 24;
-let percentPerHour = 100 / totalHours;
-let percentPerDay = percentPerHour * 24;
-
-statsText.value = `
-  %age / hour: ${percentPerHour.toFixed(4)}% |
-  %age / day: ${percentPerDay.toFixed(4)}% |
-  Total days: ${totalDays.toFixed(2)}
-`
+let barPercentage = 0;
 
 const tickTock = (() => {
   clockText.value = calculateDateString(startDate, endDate) // Run it on load
   updateBar()
 
+  // Don't run the timer if the end date is in the past
+  if (endDate < new Date()) {
+    return
+  }
   timer = setInterval(() => {
     clockText.value = calculateDateString(startDate, endDate)
     updateBar()
@@ -68,14 +62,24 @@ const updateBar = (() => {
     endDate,
     startDate,
   );
-  const percentage = 100 / daysInMs * (daysInMs - diffInMs)
-  let fillWidth = width / 100 * percentage
+  barPercentage = 100 / daysInMs * (daysInMs - diffInMs)
+  let fillWidth = width / 100 * barPercentage
+
+  if (barPercentage >= 100) {
+    fillWidth = width
+    fillText.value = 'FINALLY!'
+    barProps.value.borderRight = '0px'
+
+  } else {
+    fillText.value = `${barPercentage.toFixed(4)}%`
+  }
 
   barProps.value.width = `${fillWidth}px`
-  fillText.value = `${percentage.toFixed(4)}%`
+  blackBarProps.value.width = `${width - fillWidth}px`
 
   if (future) {
     barProps.value.width = `0px`
+    blackBarProps.value.width = `${width}px`
     fillText.value = ``
   }
 })
@@ -87,40 +91,3 @@ onUnmounted(() => {
   clearInterval(timer);
 })
 </script>
-
-<style scoped lang="scss">
-.bar {
-  height: 30px;
-  background-color: #000;
-  border-radius: 5px;
-  margin-bottom: 5px;
-
-  .fill {
-    background-color: green;
-    width: 5%;
-    height: 100%;
-    border-right: 2px solid white;
-    display: flex;
-    border-radius: 5px 0 0 5px;
-
-    span {
-      color: white;
-      margin: auto;
-    }
-  }
-}
-
-.clockText {
-  font-weight: bold;
-  color: red;
-  text-align: center;
-}
-
-.statsText {
-  color: white;
-  font-weight: 300;
-  text-align: center;
-  font-size: 12px;
-  margin-top: 5px;
-}
-</style>

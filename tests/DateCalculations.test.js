@@ -122,6 +122,13 @@ test('Return date over a 28 day month correctly (32 days)', () => {
     now = new Date('2023-02-01 00:00:00');
     expect(calculateDateString(startDate, endDate, now)).toBe('32 days 5 seconds remaining!')
 })
+// Handle leap years
+test('Return date over a 29 day month correctly (leap year)', () => {
+    startDate = new Date('2020-02-01 00:00:00');
+    endDate = new Date('2020-03-01 00:00:05');
+    now = new Date('2020-02-01 00:00:00');
+    expect(calculateDateString(startDate, endDate, now)).toBe('29 days 5 seconds remaining!')
+})
 test('Return date over a 30 day month correctly (34 days)', () => {
     startDate = new Date('2023-04-01 00:00:00');
     endDate = new Date('2023-05-05 00:00:05');
@@ -133,4 +140,9 @@ test('Return date over a 31 day month correctly (35 days)', () => {
     endDate = new Date('2023-06-05 00:00:05');
     now = new Date('2023-05-01 00:00:00');
     expect(calculateDateString(startDate, endDate, now)).toBe('35 days 5 seconds remaining!')
+})
+test('Return "You have arrived" when the end date is reached', () => {
+    endDate = new Date('2023-01-02 00:00:00');
+    now = new Date('2023-01-03 00:00:00')
+    expect(calculateDateString(startDate, endDate, now)).toBe('You have arrived!')
 })

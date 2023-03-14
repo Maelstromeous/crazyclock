@@ -1,0 +1,43 @@
+<template>
+  <div class="text-white font-light">
+    <table class="table-auto">
+      <thead>
+        <tr>
+          <th>Stat</th>
+          <th>Val</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>%age / hour</td>
+          <td>{{ percentPerHour.toFixed(2) }}%</td>
+        </tr>
+        <tr>
+          <td>%age / day</td>
+          <td>{{ percentPerDay.toFixed(2) }}%</td>
+        </tr>
+        <tr>
+          <td>Total days</td>
+          <td>{{ totalDays.toFixed(2) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</template>
+
+<script lang="ts" setup>
+const props = defineProps<{
+  startDate: Date
+  endDate: Date
+}>()
+const startDate = new Date(props.startDate);
+const endDate = new Date(props.endDate);
+
+// Stats
+let totalDurationSeconds = (endDate.getTime() - startDate.getTime()) / 1000;
+// Divide seconds into number of hours from the total
+let totalHours = totalDurationSeconds / 3600;
+let totalDays = totalHours / 24;
+let percentPerHour = 100 / totalHours;
+let percentPerDay = percentPerHour * 24;
+</script>

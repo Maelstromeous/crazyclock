@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
-    <h1>CrazyClock!</h1>
-    <Clock :startDate="'2023-02-17 16:05:00'" :endDate="'2023-03-25 13:30:00'"></Clock>
+  <div id="app" class="w-full max-w-lg m-auto">
+    <h1 class="text-4xl text-purple-600 my-4 text-center">CrazyClock!</h1>
+    <Clock :startDate="startDate" :endDate="endDate"></Clock>
   </div>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,23 +20,13 @@ useServerSeoMeta({
   ogImage: 'https://previews.123rf.com/images/kongvector/kongvector1708/kongvector170803424/84740660-crazy-clock-character-cartoon-style-vector-illustration.jpg', // Shameless copyright infringement
   twitterCard: 'summary_large_image',
 })
+
+const startDate = new Date('2023-02-17 16:05:00')
+const endDate = new Date('2023-03-25 13:30:00')
 </script>
 
 <style lang="scss">
 body {
-  background-color: #555;
   font-family: 'Roboto', serif
 }
-
-#app {
-  width: 100%;
-  max-width: 500px;
-  margin: auto;
-
-  h1 {
-    color: white;
-    text-align: center;
-  }
-}
-
 </style>

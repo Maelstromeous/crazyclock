@@ -4,6 +4,12 @@ export const calculateDateString = ((startDate: Date, endDate: Date, now?: Date)
   if (!now) {
     now = new Date()
   }
+
+  // If now is already past the end date, return 'You have arrived'
+  if (now > endDate) {
+    return 'You have arrived!'
+  }
+
   const startsInFuture = now < startDate;
   let options = {
     format: ['hours', 'minutes', 'seconds']
@@ -41,7 +47,7 @@ export const totalDays = ((start: Date, end: Date): number => {
   // Create an array filled with each day between the two dates, then count its length to get the exact number of days.
   if (duration.months || duration.years) {
     const intervalDays = eachDayOfInterval({start, end})
-    days = intervalDays.length - 1 // -1 for the array length, and another -1 because it counts whole days not a partial day
+    days = intervalDays.length - 1 // -1 for the array length
   }
 
   return days
