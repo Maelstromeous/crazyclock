@@ -59,7 +59,7 @@ const tickTock = () => {
   updateBar()
 
   // Don't run the timer if the date is in the past or future
-  if (endDate < new Date() || startDate > new Date()) {
+  if (endDate < new Date()) {
     return
   }
   timer = setInterval(() => {
