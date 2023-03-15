@@ -10,6 +10,8 @@ export const calculateDateString = (startDate: Date, endDate: Date, now?: Date):
     return 'You have arrived!'
   }
 
+  console.log('lol');
+
   const startsInFuture = now < startDate
   const options = {
     format: ['hours', 'minutes', 'seconds']
