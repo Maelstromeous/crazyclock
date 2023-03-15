@@ -30,14 +30,14 @@ const props = defineProps<{
   startDate: Date
   endDate: Date
 }>()
-const startDate = new Date(props.startDate);
-const endDate = new Date(props.endDate);
+const startDate = new Date(props.startDate)
+const endDate = new Date(props.endDate)
 
 // Stats
-let totalDurationSeconds = (endDate.getTime() - startDate.getTime()) / 1000;
+const totalDurationSeconds = (endDate.getTime() - startDate.getTime()) / 1000
 // Divide seconds into number of hours from the total
-let totalHours = totalDurationSeconds / 3600;
-let totalDays = totalHours / 24;
-let percentPerHour = 100 / totalHours;
-let percentPerDay = percentPerHour * 24;
+const totalHours = totalDurationSeconds / 3600
+const totalDays = totalHours / 24
+const percentPerHour = 100 / totalHours
+const percentPerDay = percentPerHour * 24
 </script>

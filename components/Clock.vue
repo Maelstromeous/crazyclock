@@ -1,24 +1,30 @@
 <template>
   <section class="mb-4 pb-2 border-b border-b-gray-600 last-of-type:border-0">
-    <p class="text-center text-white mb-2 text-lg">{{ startDate.toLocaleString()}} to {{ endDate.toLocaleString()}}</p>
+    <p class="text-center text-white mb-2 text-lg">
+      {{ startDate.toLocaleString() }} to {{ endDate.toLocaleString() }}
+    </p>
     <div
-      ref="bar"
       v-if="!future"
-      class="bg-black rounded-md mb-2 text-white flex bg-gradient-to-r via-green-600 from-red-600 to-blue-600" style="height: 30px">
+      ref="bar"
+      class="bg-black rounded-md mb-2 text-white flex bg-gradient-to-r via-green-600 from-red-600 to-blue-600"
+      style="height: 30px"
+    >
       <div ref="fillBar" class="h-full flex rounded-tl-md rounded-bl-md border-r-white transition-all ease-out duration-1000" :style="barProps">
         <span class="m-auto">{{ fillText }}</span>
       </div>
-      <div ref="blackBar" class="h-full bg-black rounded-tr-md rounded-br-md transition-all ease-out duration-1000" :style="blackBarProps"></div>
+      <div ref="blackBar" class="h-full bg-black rounded-tr-md rounded-br-md transition-all ease-out duration-1000" :style="blackBarProps" />
     </div>
-    <div class="text-center text-amber-400 font-bold">{{ clockText }}</div>
-    <Stats :startDate="startDate" :endDate="endDate"></Stats>
+    <div class="text-center text-amber-400 font-bold">
+      {{ clockText }}
+    </div>
+    <Stats :start-date="startDate" :end-date="endDate" />
   </section>
 </template>
 
 <script lang="ts" setup>
-import {onMounted, onUnmounted, ref} from "#imports";
-import {differenceInMilliseconds} from "date-fns";
-import {calculateDateString} from "~/lib/DateCalculations";
+import { differenceInMilliseconds } from 'date-fns'
+import { onMounted, onUnmounted, ref } from '#imports'
+import { calculateDateString } from '~/lib/DateCalculations'
 
 const props = defineProps<{
   startDate: Date
@@ -31,24 +37,24 @@ const barProps = ref({
 })
 const blackBarProps = ref({
   width: '100%',
-  borderRadius: '0',
+  borderRadius: '0'
 })
-const startDate = new Date(props.startDate);
-const endDate = new Date(props.endDate);
-let future = false;
+const startDate = new Date(props.startDate)
+const endDate = new Date(props.endDate)
+let future = false
 
 if (new Date() < startDate) {
-  future = true;
+  future = true
 }
 
-let timer: NodeJS.Timer;
+let timer: NodeJS.Timer
 const bar = ref<HTMLElement | null>(null) // Can't use value here for some reason, it breaks lower down
 const fillBar = ref<HTMLElement | null>(null)
-let fillText = ref('');
-let clockText = ref('Loading the crazy...')
-let barPercentage = 0;
+const fillText = ref('')
+const clockText = ref('Loading the crazy...')
+let barPercentage = 0
 
-const tickTock = (() => {
+const tickTock = () => {
   clockText.value = calculateDateString(startDate, endDate) // Run it on load
   updateBar()
 
@@ -60,20 +66,20 @@ const tickTock = (() => {
     clockText.value = calculateDateString(startDate, endDate)
     updateBar()
   }, 1000)
-});
+}
 
-const updateBar = (() => {
-  const width = bar.value?.offsetWidth ?? 0;
+const updateBar = () => {
+  const width = bar.value?.offsetWidth ?? 0
 
   const diffInMs = differenceInMilliseconds(
     endDate,
-    new Date(),
+    new Date()
   )
 
   const daysInMs = differenceInMilliseconds(
     endDate,
-    startDate,
-  );
+    startDate
+  )
   barPercentage = 100 / daysInMs * (daysInMs - diffInMs)
   let fillWidth = width / 100 * barPercentage
 
@@ -86,7 +92,7 @@ const updateBar = (() => {
   }
 
   if (barPercentage <= 0) {
-    blackBarProps.value.borderRadius = '0.375rem',
+    blackBarProps.value.borderRadius = '0.375rem'
     barProps.value.borderRight = '0px'
   } else {
     blackBarProps.value.borderRadius = '0 0.375rem 0.375rem 0'
@@ -97,16 +103,16 @@ const updateBar = (() => {
   blackBarProps.value.width = `${blackBarWidth}px`
 
   if (future) {
-    barProps.value.width = `0px`
+    barProps.value.width = '0px'
     blackBarProps.value.width = `${width}px`
-    fillText.value = ``
+    fillText.value = ''
   }
-})
+}
 
 onMounted(() => {
-  tickTock();
+  tickTock()
 })
 onUnmounted(() => {
-  clearInterval(timer);
+  clearInterval(timer)
 })
 </script>

@@ -1,7 +1,9 @@
 <template>
   <div id="app" class="w-full max-w-lg m-auto px-4">
-    <h1 class="text-4xl text-purple-600 my-4 text-center">CrazyClock!</h1>
-    <Clock v-for="clock in clocks" :startDate="clock.startDate" :endDate="clock.endDate"></Clock>
+    <h1 class="text-4xl text-purple-600 my-4 text-center">
+      CrazyClock!
+    </h1>
+    <Clock v-for="clock in clocks" :key="clock" :start-date="clock.startDate" :end-date="clock.endDate" />
   </div>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
@@ -17,7 +19,7 @@ useServerSeoMeta({
   description,
   ogDescription: description,
   ogImage: 'https://previews.123rf.com/images/kongvector/kongvector1708/kongvector170803424/84740660-crazy-clock-character-cartoon-style-vector-illustration.jpg', // Shameless copyright infringement
-  twitterCard: 'summary_large_image',
+  twitterCard: 'summary_large_image'
 })
 
 // array of dates with startDate and endDate as elements
@@ -31,7 +33,6 @@ const clocks = [
     endDate: new Date('2023-05-27 13:30:00')
   }
 ]
-
 </script>
 
 <style lang="scss">
