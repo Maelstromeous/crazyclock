@@ -14,3 +14,5 @@ jobs:
         run: yarn test
       - name: Run lints
         run: yarn lint
+      - name: Run typescript build
+        run: yarn build
