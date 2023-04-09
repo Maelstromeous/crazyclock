@@ -25,10 +25,6 @@ useServerSeoMeta({
 // array of dates with startDate and endDate as elements
 const clocks = [
   {
-    startDate: new Date('2023-02-17 16:05:00'),
-    endDate: new Date('2023-03-25 13:30:00')
-  },
-  {
     startDate: new Date('2023-04-17 18:30:00'),
     endDate: new Date('2023-05-27 13:30:00')
   }
