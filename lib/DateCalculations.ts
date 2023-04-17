@@ -25,7 +25,7 @@ export const calculateDateString = (startDate: Date, endDate: Date, now?: Date):
     suffix = ''
   }
 
-  const days = totalDays(dateObjects.start, dateObjects.end)
+  const days = totalDays(dateObjects.start, dateObjects.end, now)
   const duration = intervalToDuration(dateObjects)
 
   if (days === 1) {
@@ -39,16 +39,14 @@ export const calculateDateString = (startDate: Date, endDate: Date, now?: Date):
   return `${prefix}${formatDuration(duration, options)}${suffix}`
 }
 
-export const totalDays = (start: Date, end: Date): number => {
-  const duration = intervalToDuration({ start, end })
-  let days = duration.days ?? 0
-
-  // If we're over more than what is expected to be a "month" which varies in language, we need to start counting the actual number of days and performing logic... sigh
+export const totalDays = (start: Date, end: Date, now: Date): number => {
   // Create an array filled with each day between the two dates, then count its length to get the exact number of days.
-  if (duration.months || duration.years) {
-    const intervalDays = eachDayOfInterval({ start, end })
-    days = intervalDays.length - 1 // -1 for the array length
+  const intervalDays = eachDayOfInterval({ start, end })
+
+  // If current hour is already past the end hour, we need to remove the current day
+  if (now.getHours() > end.getHours()) {
+    intervalDays.shift() // Remove the first day as we're already done with the day technically
   }
 
-  return days
+  return intervalDays.length - 1 // -1 for zero array index
 }

@@ -108,7 +108,7 @@ test('Return a date that is 61 days exactly (over 2 "months")', () => {
   now = new Date('2023-03-01 00:00:00')
   expect(calculateDateString(startDate, endDate, now)).toBe('61 days 5 seconds remaining!')
 })
-test('Return a date that is 367 days exactly (over a year)', () => {
+test('Return a date that is 367 days and 5 seconds exactly (over a year)', () => {
   startDate = new Date('2023-03-01 00:00:00')
   endDate = new Date('2024-03-02 00:00:05')
   now = new Date('2023-03-01 00:00:00')
@@ -116,31 +116,51 @@ test('Return a date that is 367 days exactly (over a year)', () => {
 })
 
 // Different month durations handling
-test('Return date over a 28 day month correctly (32 days)', () => {
+test('Return date over a 28 day month correctly (32 days 5 seconds)', () => {
   startDate = new Date('2023-02-01 00:00:00')
   endDate = new Date('2023-03-05 00:00:05')
   now = new Date('2023-02-01 00:00:00')
   expect(calculateDateString(startDate, endDate, now)).toBe('32 days 5 seconds remaining!')
 })
 // Handle leap years
-test('Return date over a 29 day month correctly (leap year)', () => {
+test('Return date over a 29 day month correctly in a leap year (29 days 5 seconds)', () => {
   startDate = new Date('2020-02-01 00:00:00')
   endDate = new Date('2020-03-01 00:00:05')
   now = new Date('2020-02-01 00:00:00')
   expect(calculateDateString(startDate, endDate, now)).toBe('29 days 5 seconds remaining!')
 })
-test('Return date over a 30 day month correctly (34 days)', () => {
+test('Return date over a 30 day month correctly (34 days 5 seconds)', () => {
   startDate = new Date('2023-04-01 00:00:00')
   endDate = new Date('2023-05-05 00:00:05')
   now = new Date('2023-04-01 00:00:00')
   expect(calculateDateString(startDate, endDate, now)).toBe('34 days 5 seconds remaining!')
 })
-test('Return date over a 31 day month correctly (35 days)', () => {
+test('Return date over a 31 day month correctly (35 days 5 seconds)', () => {
   startDate = new Date('2023-05-01 00:00:00')
   endDate = new Date('2023-06-05 00:00:05')
   now = new Date('2023-05-01 00:00:00')
   expect(calculateDateString(startDate, endDate, now)).toBe('35 days 5 seconds remaining!')
 })
+test('Return date over 40 days correctly (40 days 13 hours 35 minutes 23 seconds', () => {
+  startDate = new Date('2023-04-17 18:30:00')
+  endDate = new Date('2023-05-28 09:35:33')
+  now = new Date('2023-04-17 20:00:10')
+  expect(calculateDateString(startDate, endDate, now)).toBe('40 days 13 hours 35 minutes 23 seconds remaining!')
+})
+
+test('Return date over a month when now time hour is less than end date hour (39 days 1 hour 30 mins)', () => {
+  startDate = new Date('2023-04-17 18:30:00')
+  endDate = new Date('2023-05-27 13:30:00')
+  now = new Date('2023-04-18 12:00:00')
+  expect(calculateDateString(startDate, endDate, now)).toBe('39 days 1 hour 30 minutes remaining!')
+})
+test('Return date over a month when now time hour is greater than end date hour (38 days 17 hours 30 mins)', () => {
+  startDate = new Date('2023-04-17 18:30:00')
+  endDate = new Date('2023-05-27 13:30:00')
+  now = new Date('2023-04-18 20:00:00')
+  expect(calculateDateString(startDate, endDate, now)).toBe('38 days 17 hours 30 minutes remaining!')
+})
+
 test('Return "You have arrived" when the end date is reached', () => {
   endDate = new Date('2023-01-02 00:00:00')
   now = new Date('2023-01-03 00:00:00')
