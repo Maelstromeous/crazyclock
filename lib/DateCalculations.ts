@@ -1,8 +1,13 @@
 import { eachDayOfInterval, formatDuration, intervalToDuration } from 'date-fns'
+import { formatInTimeZone } from 'date-fns-tz'
 
-export const calculateDateString = (startDate: Date, endDate: Date, now?: Date): string => {
+export const calculateDateString = (startDate: Date, endDate: Date, now?: Date, timezone?: string): string => {
+  // If no timezone is provided, assume BST
+  timezone = timezone ?? 'Europe/London'
   if (!now) {
-    now = new Date()
+    now = new Date(
+      formatInTimeZone(new Date(), timezone, 'yyyy-MM-dd HH:mm:ssXX')
+    )
   }
 
   // If now is already past the end date, return 'You have arrived'

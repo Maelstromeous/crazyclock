@@ -29,6 +29,7 @@ import { calculateDateString } from '~/lib/DateCalculations'
 const props = defineProps<{
   startDate: Date
   endDate: Date
+  timezone?: string
 }>()
 
 const barProps = ref({
@@ -41,6 +42,7 @@ const blackBarProps = ref({
 })
 const startDate = new Date(props.startDate)
 const endDate = new Date(props.endDate)
+const timezone = props.timezone ?? 'Europe/London'
 let future = false
 
 if (new Date() < startDate) {
@@ -55,7 +57,7 @@ const clockText = ref('Loading the crazy...')
 let barPercentage = 0
 
 const tickTock = () => {
-  clockText.value = calculateDateString(startDate, endDate) // Run it on load
+  clockText.value = calculateDateString(startDate, endDate, timezone) // Run it on load
   updateBar()
 
   // Don't run the timer if the date is in the past or future
@@ -63,7 +65,7 @@ const tickTock = () => {
     return
   }
   timer = setInterval(() => {
-    clockText.value = calculateDateString(startDate, endDate)
+    clockText.value = calculateDateString(startDate, endDate, timezone)
     updateBar()
   }, 1000)
 }

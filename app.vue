@@ -26,7 +26,8 @@ useServerSeoMeta({
 const clocks = [
   {
     startDate: new Date('2023-04-17 18:30:00'),
-    endDate: new Date('2023-05-27 13:30:00')
+    endDate: new Date('2023-05-27 13:30:00'),
+    timezone: 'Europe/London'
   }
 ]
 </script>
