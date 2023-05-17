@@ -1,8 +1,9 @@
-import { eachDayOfInterval, formatDuration, intervalToDuration } from 'date-fns'
+import { differenceInMilliseconds, formatDuration, intervalToDuration } from 'date-fns'
+import { UTCDateMini } from '@date-fns/utc'
 
-export const calculateDateString = (startDate: Date, endDate: Date, now?: Date): string => {
+export const calculateDateString = (startDate: UTCDateMini, endDate: UTCDateMini, now?: UTCDateMini): string => {
   if (!now) {
-    now = new Date()
+    now = new UTCDateMini()
   }
 
   // If now is already past the end date, return 'You have arrived'
@@ -25,8 +26,11 @@ export const calculateDateString = (startDate: Date, endDate: Date, now?: Date):
     suffix = ''
   }
 
-  const days = totalDays(dateObjects.start, dateObjects.end, now)
   const duration = intervalToDuration(dateObjects)
+  const diffInSecs = differenceInMilliseconds(dateObjects.end, now) / 1000
+
+  // Divide the number of seconds into days, floor it, which gives us our total number of days
+  const days = Math.floor(diffInSecs / (60 * 60 * 24))
 
   if (days === 1) {
     prefix = `${prefix}1 day `
@@ -37,16 +41,4 @@ export const calculateDateString = (startDate: Date, endDate: Date, now?: Date):
   }
 
   return `${prefix}${formatDuration(duration, options)}${suffix}`
-}
-
-export const totalDays = (start: Date, end: Date, now: Date): number => {
-  // Create an array filled with each day between the two dates, then count its length to get the exact number of days.
-  const intervalDays = eachDayOfInterval({ start, end })
-
-  // If current hour is already past the end hour, we need to remove the current day
-  if (now.getHours() > end.getHours()) {
-    intervalDays.shift() // Remove the first day as we're already done with the day technically
-  }
-
-  return intervalDays.length - 1 // -1 for zero array index
 }

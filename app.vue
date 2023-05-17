@@ -11,6 +11,8 @@
 </template>
 
 <script lang="ts" setup>
+import { UTCDateMini } from '@date-fns/utc'
+
 const description = 'This project is to track the amount of time between two love birds meeting each other next. It brings a whole new level to clock watching!'
 
 useServerSeoMeta({
@@ -23,10 +25,11 @@ useServerSeoMeta({
 })
 
 // array of dates with startDate and endDate as elements
+// REMEMBER: UTCDateMini month index is zero indexed, so 0 = Jan, 1 = Feb, 11 = Dec etc, bonkers I know
 const clocks = [
   {
-    startDate: new Date('2023-04-17 18:30:00'),
-    endDate: new Date('2023-05-27 08:30:00')
+    startDate: new UTCDateMini(2023, 2, 17, 17, 30, 0),
+    endDate: new UTCDateMini(2023, 4, 27, 7, 30, 0)
   }
 ]
 </script>

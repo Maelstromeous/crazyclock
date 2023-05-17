@@ -1287,6 +1287,11 @@
   dependencies:
     mime "^3.0.0"
 
+"@date-fns/utc@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@date-fns/utc/-/utc-1.0.0.tgz#c17c693a2a89ddc44acf951ceb2153881c0f78ce"
+  integrity sha512-NjV/AIlmOEhuuFJpQHOEeFl0mxVZIm77/JDSQqu/B43yL7gYDNUfH58I4sRkOCZty2gHoKQfmThtEY/DtTDhhQ==
+
 "@esbuild/android-arm64@0.16.17":
   version "0.16.17"
   resolved "https://registry.yarnpkg.com/@esbuild/android-arm64/-/android-arm64-0.16.17.tgz#cf91e86df127aa3d141744edafcba0abdc577d23"

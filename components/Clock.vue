@@ -22,13 +22,15 @@
 </template>
 
 <script lang="ts" setup>
+/* eslint-disable vue/no-setup-props-destructure */
 import { differenceInMilliseconds } from 'date-fns'
+import { UTCDateMini } from '@date-fns/utc'
 import { onMounted, onUnmounted, ref } from '#imports'
 import { calculateDateString } from '~/lib/DateCalculations'
 
 const props = defineProps<{
-  startDate: Date
-  endDate: Date
+  startDate: UTCDateMini
+  endDate: UTCDateMini
 }>()
 
 const barProps = ref({
@@ -39,11 +41,12 @@ const blackBarProps = ref({
   width: '100%',
   borderRadius: '0'
 })
-const startDate = new Date(props.startDate)
-const endDate = new Date(props.endDate)
+const startDate = props.startDate
+const endDate = props.endDate
+const now = new UTCDateMini()
 let future = false
 
-if (new Date() < startDate) {
+if (now < props.startDate) {
   future = true
 }
 
