@@ -39,6 +39,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Set BST for tests
+        uses: szenius/set-timezone@v1.2
+        with:
+          timezoneLinux: "Europe/London"
+
       - name: Run tests
         run: pnpm test
 
