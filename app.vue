@@ -28,8 +28,12 @@ useServerSeoMeta({
 // REMEMBER: UTCDateMini month index is zero indexed, so 0 = Jan, 1 = Feb, 11 = Dec etc, bonkers I know
 const clocks = [
   {
-    startDate: new UTCDateMini(2023, 3, 17, 17, 30, 0),
-    endDate: new UTCDateMini(2023, 4, 27, 7, 30, 0)
+    startDate: new UTCDateMini(2023, 5, 11, 17, 30, 0),
+    endDate: new UTCDateMini(2023, 6, 8, 0, 0, 0)
+  },
+  {
+    startDate: new UTCDateMini(2023, 6, 16, 17, 30, 0),
+    endDate: new UTCDateMini(2023, 7, 1, 17, 0, 0)
   }
 ]
 </script>
