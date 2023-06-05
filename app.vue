@@ -1,9 +1,9 @@
 <template>
-  <div id="app" class="w-full max-w-lg m-auto px-4">
+  <div id="app" class="w-full max-w-xl m-auto px-4">
     <h1 class="text-4xl text-purple-600 my-4 text-center">
       CrazyClock!
     </h1>
-    <Clock v-for="clock in clocks" :key="clock" :start-date="clock.startDate" :end-date="clock.endDate" />
+    <Clock v-for="clock in clocks" :key="clock" :name="clock.name" :start-date="clock.startDate" :end-date="clock.endDate" />
   </div>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
@@ -28,10 +28,12 @@ useServerSeoMeta({
 // REMEMBER: UTCDateMini month index is zero indexed, so 0 = Jan, 1 = Feb, 11 = Dec etc, bonkers I know
 const clocks = [
   {
+    name: '🇨🇭Swiss Trip🇨🇭',
     startDate: new UTCDateMini(2023, 5, 11, 17, 30, 0),
     endDate: new UTCDateMini(2023, 6, 8, 0, 0, 0)
   },
   {
+    name: 'The one holiday to rule them all aka "Holy Holiday"',
     startDate: new UTCDateMini(2023, 6, 16, 17, 30, 0),
     endDate: new UTCDateMini(2023, 7, 1, 17, 0, 0)
   }

@@ -1,7 +1,10 @@
 <template>
   <section class="mb-4 pb-2 border-b border-b-gray-600 last-of-type:border-0">
-    <p class="text-center text-white mb-2 text-lg">
-      {{ startDate.toLocaleString() }} to {{ endDate.toLocaleString() }}
+    <p class="text-center text-white mb-2 text-2xl">
+      {{ name }}
+    </p>
+    <p class="text-center text-white mb-2 text-md">
+      {{ startDate.toLocaleString() }} ➡️ {{ endDate.toLocaleString() }}
     </p>
     <div
       v-if="!future"
@@ -29,10 +32,16 @@ import { onMounted, onUnmounted, ref } from '#imports'
 import { calculateDateString } from '~/lib/DateCalculations'
 
 const props = defineProps<{
+  name: string;
   startDate: UTCDateMini
   endDate: UTCDateMini
 }>()
 
+const name = props.name
+const startDate = props.startDate
+const endDate = props.endDate
+const now = new UTCDateMini()
+let future = false
 const barProps = ref({
   width: '0%',
   borderRight: '0'
@@ -41,10 +50,6 @@ const blackBarProps = ref({
   width: '100%',
   borderRadius: '0'
 })
-const startDate = props.startDate
-const endDate = props.endDate
-const now = new UTCDateMini()
-let future = false
 
 if (now < props.startDate) {
   future = true
