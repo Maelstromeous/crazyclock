@@ -29,7 +29,7 @@ useServerSeoMeta({
 const clocks = [
   {
     name: '🇨🇭Swiss Trip🇨🇭',
-    startDate: new UTCDateMini(2023, 5, 11, 17, 30, 0),
+    startDate: new UTCDateMini(2023, 5, 12, 18, 45, 0),
     endDate: new UTCDateMini(2023, 6, 8, 0, 0, 0)
   },
   {
