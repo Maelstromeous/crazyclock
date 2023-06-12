@@ -30,7 +30,7 @@ const clocks = [
   {
     name: '🇨🇭Swiss Trip🇨🇭',
     startDate: new UTCDateMini(2023, 5, 12, 18, 45, 0),
-    endDate: new UTCDateMini(2023, 6, 8, 0, 0, 0)
+    endDate: new UTCDateMini(2023, 6, 7, 18, 45, 0)
   },
   {
     name: 'The one holiday to rule them all aka "Holy Holiday"',
