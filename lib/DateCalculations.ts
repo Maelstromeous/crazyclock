@@ -1,7 +1,7 @@
 import { differenceInMilliseconds, formatDuration, intervalToDuration } from 'date-fns'
 import { UTCDateMini } from '@date-fns/utc'
 
-export const calculateDateString = (startDate: UTCDateMini, endDate: UTCDateMini, now?: UTCDateMini): string => {
+export const calculateDateString = (startDate: UTCDateMini, endDate: UTCDateMini, now?: UTCDateMini, showEnd = false): string => {
   if (!now) {
     now = new UTCDateMini()
   }
@@ -11,7 +11,7 @@ export const calculateDateString = (startDate: UTCDateMini, endDate: UTCDateMini
     return 'You have arrived!'
   }
 
-  const startsInFuture = now < startDate
+  const startsInFuture = !showEnd && (now < startDate)
   const options = {
     format: ['hours', 'minutes', 'seconds']
   }

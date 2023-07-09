@@ -3,7 +3,7 @@
     <h1 class="text-4xl text-purple-600 my-4 text-center">
       CrazyClock!
     </h1>
-    <Clock v-for="clock in clocks" :key="clock" :name="clock.name" :start-date="clock.startDate" :end-date="clock.endDate" />
+    <Clock v-for="clock in clocks" :key="clock.name" :name="clock.name" :start-date="clock.startDate" :end-date="clock.endDate" />
   </div>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
@@ -27,11 +27,6 @@ useServerSeoMeta({
 // array of dates with startDate and endDate as elements
 // REMEMBER: UTCDateMini month index is zero indexed, so 0 = Jan, 1 = Feb, 11 = Dec etc, bonkers I know
 const clocks = [
-  {
-    name: '🇨🇭Swiss Trip🇨🇭',
-    startDate: new UTCDateMini(2023, 5, 12, 17, 45, 0),
-    endDate: new UTCDateMini(2023, 6, 7, 20, 45, 0)
-  },
   {
     name: 'The one holiday to rule them all aka "Holy Holiday"',
     startDate: new UTCDateMini(2023, 6, 16, 17, 30, 0),

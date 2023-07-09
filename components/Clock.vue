@@ -20,6 +20,9 @@
     <div class="text-center text-amber-400 font-bold">
       {{ clockText }}
     </div>
+    <div v-if="now < startDate" class="text-center text-white mt-2">
+      <input type="checkbox" @change="updateShowEnd"> Show end?
+    </div>
     <Stats :start-date="startDate" :end-date="endDate" />
   </section>
 </template>
@@ -50,11 +53,6 @@ const blackBarProps = ref({
   width: '100%',
   borderRadius: '0'
 })
-
-if (now < props.startDate) {
-  future = true
-}
-
 let timer: NodeJS.Timer
 const bar = ref<HTMLElement | null>(null) // Can't use value here for some reason, it breaks lower down
 const fillBar = ref<HTMLElement | null>(null)
@@ -62,16 +60,25 @@ const fillText = ref('')
 const clockText = ref('Loading the crazy...')
 let barPercentage = 0
 
-const tickTock = () => {
-  clockText.value = calculateDateString(startDate, endDate) // Run it on load
+if (now < props.startDate) {
+  future = true
+}
+
+const tickTock = (showEnd = false) => {
+  // Wipe the timer if it already exists
+  if (timer) {
+    clearInterval(timer)
+  }
+
+  clockText.value = calculateDateString(startDate, endDate, undefined, showEnd) // Run it on load
   updateBar()
 
-  // Don't run the timer if the date is in the past or future
+  // Don't run the timer if the event is in the past
   if (endDate < new Date()) {
     return
   }
   timer = setInterval(() => {
-    clockText.value = calculateDateString(startDate, endDate)
+    clockText.value = calculateDateString(startDate, endDate, undefined, showEnd)
     updateBar()
   }, 1000)
 }
@@ -115,6 +122,11 @@ const updateBar = () => {
     blackBarProps.value.width = `${width}px`
     fillText.value = ''
   }
+}
+
+const updateShowEnd = (showEnd: Event) => {
+  const target = showEnd.target as HTMLInputElement
+  tickTock(target.checked)
 }
 
 onMounted(() => {
