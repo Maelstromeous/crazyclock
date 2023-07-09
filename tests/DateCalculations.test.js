@@ -101,11 +101,10 @@ test('Days should be consistent before and after midnight', () => {
 })
 test('Expected number of hours return before and after midnight when <24h', () => {
   endDate = new UTCDateMini(2023, 0, 2, 12, 0, 0)
-
   now = new UTCDateMini(2023, 0, 1, 23, 0, 0)
   expect(calculateDateString(startDate, endDate, now)).toBe('13 hours remaining!')
 
-  now = new Date('2023-01-02 01:00:00')
+  now = new UTCDateMini(2023, 0, 2, 1, 0, 0)
   expect(calculateDateString(startDate, endDate, now)).toBe('11 hours remaining!')
 })
 
@@ -215,8 +214,14 @@ test('Return date exiting DST over longer period (30 days 6 hours minus 1 hour d
 })
 
 test('Return "You have arrived" when the end date is reached', () => {
-  endDate = new Date('2023-01-02 00:00:00')
   endDate = new UTCDateMini(2023, 0, 2, 0, 0, 0)
   now = new UTCDateMini(2023, 0, 3, 0, 0, 0)
   expect(calculateDateString(startDate, endDate, now)).toBe('You have arrived!')
+})
+
+test('Return the end date of the trip when the showEnd var is passed', () => {
+  now = new UTCDateMini(2023, 0, 1, 1, 0, 0)
+  startDate = new UTCDateMini(2023, 0, 5, 0, 0, 0)
+  endDate = new UTCDateMini(2023, 0, 6, 0, 0, 0)
+  expect(calculateDateString(startDate, endDate, now, true)).toBe('4 days 23 hours remaining!')
 })
