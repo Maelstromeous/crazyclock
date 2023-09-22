@@ -30,7 +30,7 @@ const clocks = [
   {
     name: 'The weeks of happiness',
     startDate: new UTCDateMini(2023, 8, 19, 17, 45, 0),
-    endDate: new UTCDateMini(2023, 9, 21, 9, 45, 0),
+    endDate: new UTCDateMini(2023, 9, 21, 9, 45, 0)
   }
 ]
 </script>
