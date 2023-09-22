@@ -6,8 +6,7 @@
   "versioning": "npm",
   "packageRules": [
     {
-      "matchUpdateTypes": ["major", "minor", "patch"],
-      "matchCurrentVersion": "!/^0/",
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "automerge": true
     }
   ]
