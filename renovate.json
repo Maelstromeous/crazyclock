@@ -3,12 +3,5 @@
     "config:base",
     ":dependencyDashboard"
   ],
-  "versioning": "npm",
-  "packageRules": [
-    {
-      "description": "Automerge non-major updates",
-      "matchUpdateTypes": ["major" ,"minor", "patch"],
-      "automerge": true
-    }
-  ]
+  "versioning": "npm"
 }
