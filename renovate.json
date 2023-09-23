@@ -3,5 +3,16 @@
     "config:base",
     ":dependencyDashboard"
   ],
-  "versioning": "npm"
+  "versioning": "npm",
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true
+  },
+  "packageRules": [
+    {
+      "matchDepTypes": ["devDependencies"],
+      "matchPackagePatterns": ["lint", "prettier"],
+      "automerge": true
+    }
+  ]
 }
