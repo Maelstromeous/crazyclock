@@ -28,9 +28,9 @@ useServerSeoMeta({
 // REMEMBER: UTCDateMini month index is zero indexed, so 0 = Jan, 1 = Feb, 11 = Dec etc, bonkers I know
 const clocks = [
   {
-    name: 'The weeks of happiness',
-    startDate: new UTCDateMini(2023, 8, 19, 17, 45, 0),
-    endDate: new UTCDateMini(2023, 9, 21, 9, 45, 0)
+    name: '🎅Crimbo in the mountain 🎅',
+    startDate: new UTCDateMini(2023, 10, 4, 12, 0, 0),
+    endDate: new UTCDateMini(2023, 11, 21, 21, 45, 0)
   }
 ]
 </script>
