@@ -29,8 +29,8 @@ useServerSeoMeta({
 const clocks = [
   {
     name: 'Happy May',
-    startDate: new UTCDateMini(2024, 3, 6, 21, 0, 0),
-    endDate: new UTCDateMini(2024, 4, 3, 22, 45, 0)
+    startDate: new UTCDateMini(2024, 3, 6, 15, 0, 0),
+    endDate: new UTCDateMini(2024, 4, 3, 20, 45, 0)
   },
   {
     name: 'Bunnies in the mountains',
