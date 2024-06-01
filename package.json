@@ -8,9 +8,9 @@
     "postinstall": "nuxt prepare",
     "lint": "eslint --ext .js,.ts,.vue .",
     "lint:fix": "eslint --ext .js,.ts,.vue . --fix",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "test:wsl": "node --experimental-vm-modules node_modules/jest/bin/jest.js --maxWorkers=4 --coverage",
-    "test:ci": "node --experimental-vm-modules node_modules/jest/bin/jest.js --ci --coverage",
+    "test": "jest",
+    "test:wsl": "jest --maxWorkers=4 --coverage",
+    "test:ci": "jest --ci --coverage",
     "lint-staged": "lint-staged"
   },
   "dependencies": {

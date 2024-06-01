@@ -1,6 +1,6 @@
-/** @type {import('ts-jest').InitialOptionsTsJest} */
+/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 module.exports = {
-  preset: 'ts-jest/presets/js-with-ts-esm',
+  preset: 'ts-jest',
   testEnvironment: 'jsdom',
   moduleFileExtensions: ["js", "jsx", "mjs", "ts", "tsx", "vue"],
   moduleNameMapper: {
@@ -8,13 +8,11 @@ module.exports = {
     "#app": "<rootDir>/node_modules/nuxt3/dist/app/index.mjs"
   },
   transform: {
-    '^.+\\.(js|jsx|mjs)$': 'babel-jest',
-    '^.+\\.ts$': ['ts-jest', { useESM: true }],
+    '^.+\\.(js|jsx|mjs|ts|tsx)$': 'babel-jest',
     ".+\\.(css|scss|png|jpg|svg)$": "jest-transform-stub",
     ".*\\.(vue)$": "@vue/vue3-jest"
   },
   transformIgnorePatterns: [
     "node_modules/(?!(nuxt3|unenv))"
-  ],
-  extensionsToTreatAsEsm: ['.ts']
+  ]
 };
