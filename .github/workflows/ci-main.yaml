@@ -61,6 +61,12 @@ jobs:
           commit-message: "ci(bot): Update coverage badges"
           badges-icon: jest
 
+      # Need to wait a little bit for the last commit to fully register with GH, then pull it in
+      - name: Wait a little bit...
+        uses: GuillaumeFalourd/wait-sleep-action@v1
+        with:
+          time: '5'
+
       - name: Bump package version
         id: version
         uses: phips28/gh-action-bump-version@master
