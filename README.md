@@ -4,34 +4,35 @@ This project is to track the amount of time between two love birds meeting each 
 
 ## Technologies
 
-- [Nuxt 3](https://nuxt.com/docs/getting-started/introduction) - Based on Vue 3.
-- [Jest](https://jestjs.io/)
-- [Vercel](https://vercel.com/)
+- [Nuxt 3](https://nuxt.com/docs/getting-started/introduction) - Frontend framework.
+- [Jest](https://jestjs.io/) - Tests.
+- [Vercel](https://vercel.com/) - Used to deploy the project and host the frontend, saves me having a full on web server to host it.
 
 ## Setup
 
-Make sure to install the dependencies:
-
+Install package managers, pay attention to the .zshrc / .bashrc stuff brew tells you to add:
 ```bash
-yarn install
+brew install pnpm@9 nvm
 ```
 
-You also need node version >16to install the test suite. Install `nvm` and run:
-
+Runtime environment setup:
 ```bash
-nvm install 16
+nvm install 20 && nvm use 20
+```
+
+Make sure to install the dependencies:
+```bash
+pnpm install
 ```
 
 ## Testing
-
-Tests are developed using [Jest](https://jestjs.io/). Run tests by simply running `yarn test`.
+Tests are developed using [Jest](https://jestjs.io/). Run tests by simply running `pnpm test`.
 
 ## Development Server
-
 Start the development server on http://localhost:3000
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 ## Deployment
