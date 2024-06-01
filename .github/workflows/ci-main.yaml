@@ -44,6 +44,15 @@ jobs:
         with:
           timezoneLinux: "Europe/London"
 
+      # Need to do it here so the version is baked into the build
+      - name: Bump package version
+        id: version
+        uses: phips28/gh-action-bump-version@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          target-branch: main
+
       - name: Run typescript build
         run: pnpm build
 
@@ -66,14 +75,6 @@ jobs:
         uses: GuillaumeFalourd/wait-sleep-action@v1
         with:
           time: '5'
-
-      - name: Bump package version
-        id: version
-        uses: phips28/gh-action-bump-version@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          target-branch: main
 
       - name: Create new GitHub Release
         uses: ncipollo/release-action@v1.14.0
