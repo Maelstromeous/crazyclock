@@ -7,8 +7,7 @@ const pkg = JSON.parse(readFileSync(pkgPath, 'utf8'))
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default {
-  plugins: [
-    { src: '~/plugins/vercel.ts', mode: 'client' }],
+  plugins: [{ src: '~/plugins/vercel.ts', mode: 'client' }],
   app: {
     head: {
       charset: 'utf-8',
