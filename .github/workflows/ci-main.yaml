@@ -1,0 +1,65 @@
+name: CI Main
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 9.1.4
+          run_install: false
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v4
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Set BST for tests
+        uses: szenius/set-timezone@v1.2
+        with:
+          timezoneLinux: "Europe/London"
+
+      - name: Run typescript build
+        run: pnpm build
+
+      - name: Run tests
+        run: pnpm test:ci
+
+      - name: Run lints
+        run: pnpm lint
+
+      - name: Generate coverage badges
+        uses: jpb06/coverage-badges-action@latest
+        with:
+          branches: main
+          coverage-summary-path: ./coverage/coverage-summary.json
+          commit-message: "ci(bot): Update coverage badges"
+          badges-icon: jest
+
+      - name: Deploy to Vercel
+        run: curl -X POST ${{ secrets.VERCEL_DEPLOY_PROD_HOOK }}

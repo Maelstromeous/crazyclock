@@ -1,6 +1,5 @@
-name: CI
+name: CI PR
 on:
-  push:
   pull_request:
     types: [opened, reopened]
 jobs:
@@ -52,11 +51,3 @@ jobs:
 
       - name: Run lints
         run: pnpm lint
-
-      - name: Generate coverage badges
-        uses: jpb06/coverage-badges-action@latest
-        with:
-          branches: main
-          coverage-summary-path: ./coverage/coverage-summary.json
-          commit-message: "ci(bot): Update coverage badges"
-          badges-icon: jest

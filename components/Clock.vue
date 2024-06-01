@@ -12,16 +12,24 @@
       class="bg-black rounded-md mb-2 text-white flex bg-gradient-to-r via-green-600 from-red-600 to-blue-600"
       style="height: 30px"
     >
-      <div ref="fillBar" class="h-full flex rounded-tl-md rounded-bl-md border-r-white transition-all ease-out duration-1000" :style="barProps">
+      <div
+        ref="fillBar"
+        class="h-full flex rounded-tl-md rounded-bl-md border-r-white transition-all ease-out duration-1000"
+        :style="barProps"
+      >
         <span class="m-auto">{{ fillText }}</span>
       </div>
-      <div ref="blackBar" class="h-full bg-black rounded-tr-md rounded-br-md transition-all ease-out duration-1000" :style="blackBarProps" />
+      <div
+        ref="blackBar"
+        class="h-full bg-black rounded-tr-md rounded-br-md transition-all ease-out duration-1000"
+        :style="blackBarProps"
+      />
     </div>
     <div class="text-center text-amber-400 font-bold">
       {{ clockText }}
     </div>
     <div v-if="now < startDate" class="text-center text-white mt-2">
-      <input type="checkbox" @change="updateShowEnd"> Show end?
+      <input type="checkbox" @change="updateShowEnd" /> Show end?
     </div>
     <Stats :start-date="startDate" :end-date="endDate" />
   </section>
@@ -35,7 +43,7 @@ import { onMounted, onUnmounted, ref } from '#imports'
 import { calculateDateString } from '~/lib/DateCalculations'
 
 const props = defineProps<{
-  name: string;
+  name: string
   startDate: UTCDateMini
   endDate: UTCDateMini
 }>()
@@ -47,11 +55,11 @@ const now = new UTCDateMini()
 let future = false
 const barProps = ref({
   width: '0%',
-  borderRight: '0'
+  borderRight: '0',
 })
 const blackBarProps = ref({
   width: '100%',
-  borderRadius: '0'
+  borderRadius: '0',
 })
 let timer: NodeJS.Timer
 const bar = ref<HTMLElement | null>(null) // Can't use value here for some reason, it breaks lower down
@@ -78,7 +86,12 @@ const tickTock = (showEnd = false) => {
     return
   }
   timer = setInterval(() => {
-    clockText.value = calculateDateString(startDate, endDate, undefined, showEnd)
+    clockText.value = calculateDateString(
+      startDate,
+      endDate,
+      undefined,
+      showEnd
+    )
     updateBar()
   }, 1000)
 }
@@ -86,17 +99,11 @@ const tickTock = (showEnd = false) => {
 const updateBar = () => {
   const width = bar.value?.offsetWidth ?? 0
 
-  const diffInMs = differenceInMilliseconds(
-    endDate,
-    new Date()
-  )
+  const diffInMs = differenceInMilliseconds(endDate, new Date())
 
-  const daysInMs = differenceInMilliseconds(
-    endDate,
-    startDate
-  )
-  barPercentage = 100 / daysInMs * (daysInMs - diffInMs)
-  let fillWidth = width / 100 * barPercentage
+  const daysInMs = differenceInMilliseconds(endDate, startDate)
+  barPercentage = (100 / daysInMs) * (daysInMs - diffInMs)
+  let fillWidth = (width / 100) * barPercentage
 
   if (barPercentage >= 100) {
     fillWidth = width
