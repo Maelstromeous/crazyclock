@@ -12,5 +12,7 @@ module.exports = {
     '.+\\.(css|scss|png|jpg|svg)$': 'jest-transform-stub',
     '.*\\.(vue)$': '@vue/vue3-jest',
   },
+  coverageDirectory: '../coverage',
+  coverageReporters: ['json-summary', 'text', 'lcov'],
   transformIgnorePatterns: ['node_modules/(?!(nuxt3|unenv))'],
 }
