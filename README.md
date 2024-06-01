@@ -36,4 +36,3 @@ pnpm dev
 Deployments are handled via [Vercel](https://vercel.com/). Once code has been merged into `main` branch it will be automatically deployed.
 
 Pull requests spin up their own environment copy for preview and approval. Check the [Deployments](https://github.com/Maelstromeous/crazyclock/deployments) section for preview environments.
-
