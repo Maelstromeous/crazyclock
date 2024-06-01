@@ -1,4 +1,5 @@
 <template>
+  <SpeedInsights />
   <div id="app" class="w-full max-w-xl m-auto px-4">
     <h1 class="text-4xl text-purple-600 my-4 text-center">
       CrazyClock!
@@ -12,6 +13,7 @@
 
 <script lang="ts" setup>
 import { UTCDateMini } from '@date-fns/utc'
+import { SpeedInsights } from '@vercel/speed-insights/vue';
 
 const description = 'This project is to track the amount of time between two love birds meeting each other next. It brings a whole new level to clock watching!'
 

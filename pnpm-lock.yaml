@@ -14,6 +14,9 @@ importers:
       '@vercel/analytics':
         specifier: ^1.0.0
         version: 1.2.2
+      '@vercel/speed-insights':
+        specifier: ^1.0.11
+        version: 1.0.11(vue-router@4.3.0(vue@3.4.21(typescript@5.4.2)))(vue@3.4.21(typescript@5.4.2))
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
@@ -1790,6 +1793,29 @@ packages:
     resolution: {integrity: sha512-j4jCOOXke2t8cHZCIxu1dzKLHLcFmYzC3yqAK6MfZznOL1QIJKd0xcFsXK3zcqzU7ScsE2zWkiMMNHGMHgp+FA==}
     engines: {node: '>=16'}
     hasBin: true
+
+  '@vercel/speed-insights@1.0.11':
+    resolution: {integrity: sha512-l9hzSNmJvb2Yqpgd/BzpiT0J0aQDdtqxOf3Xm+iW4PICxVvhY1ef7Otdx4GXI+88dVkws57qMzXiShz19gXzSQ==}
+    peerDependencies:
+      '@sveltejs/kit': ^1 || ^2
+      next: '>= 13'
+      react: ^18 || ^19
+      svelte: ^4
+      vue: ^3
+      vue-router: ^4
+    peerDependenciesMeta:
+      '@sveltejs/kit':
+        optional: true
+      next:
+        optional: true
+      react:
+        optional: true
+      svelte:
+        optional: true
+      vue:
+        optional: true
+      vue-router:
+        optional: true
 
   '@vitejs/plugin-vue-jsx@3.1.0':
     resolution: {integrity: sha512-w9M6F3LSEU5kszVb9An2/MmXNxocAnUb3WhRr8bHlimhDrXNt6n6D2nJQR3UXpGlZHh/EsgouOHCsM8V3Ln+WA==}
@@ -8487,6 +8513,11 @@ snapshots:
     transitivePeerDependencies:
       - encoding
       - supports-color
+
+  '@vercel/speed-insights@1.0.11(vue-router@4.3.0(vue@3.4.21(typescript@5.4.2)))(vue@3.4.21(typescript@5.4.2))':
+    optionalDependencies:
+      vue: 3.4.21(typescript@5.4.2)
+      vue-router: 4.3.0(vue@3.4.21(typescript@5.4.2))
 
   '@vitejs/plugin-vue-jsx@3.1.0(vite@5.2.8(@types/node@20.13.0)(sass@1.72.0)(terser@5.30.3))(vue@3.4.21(typescript@5.4.2))':
     dependencies:
