@@ -1,7 +1,6 @@
 name: CI PR
 on:
   pull_request:
-    types: [opened, reopened]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -51,11 +50,3 @@ jobs:
 
       - name: Run lints
         run: pnpm lint
-
-      - name: Deploy to Vercel for Preview
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-        run: |
-          git remote add vercel https://vercel:${{ secrets.VERCEL_TOKEN }}@github.com/${{ github.repository }}
-          git fetch vercel main
-          git push vercel HEAD:refs/heads/main

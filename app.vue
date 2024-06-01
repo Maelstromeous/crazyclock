@@ -2,6 +2,7 @@
   <SpeedInsights />
   <div id="app" class="w-full max-w-xl m-auto px-4">
     <h1 class="text-4xl text-purple-600 my-4 text-center">CrazyClock!</h1>
+    <p class="m-auto mt-0 mb-4 text-center">Version: {{ version }}</p>
     <Clock
       v-for="clock in clocks"
       :key="clock.name"
@@ -21,6 +22,7 @@
 <script lang="ts" setup>
 import { UTCDateMini } from '@date-fns/utc'
 import { SpeedInsights } from '@vercel/speed-insights/vue'
+import { useRuntimeConfig } from '#app'
 
 const description =
   'This project is to track the amount of time between two love birds meeting each other next. It brings a whole new level to clock watching!'
@@ -34,6 +36,9 @@ useServerSeoMeta({
     'https://previews.123rf.com/images/kongvector/kongvector1708/kongvector170803424/84740660-crazy-clock-character-cartoon-style-vector-illustration.jpg', // Shameless copyright infringement
   twitterCard: 'summary_large_image',
 })
+
+const config = useRuntimeConfig()
+const version = config.public.appVersion
 
 // array of dates with startDate and endDate as elements
 // REMEMBER: UTCDateMini month index is zero indexed, so 0 = Jan, 1 = Feb, 11 = Dec etc, bonkers I know
