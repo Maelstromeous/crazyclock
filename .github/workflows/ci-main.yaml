@@ -61,5 +61,19 @@ jobs:
           commit-message: "ci(bot): Update coverage badges"
           badges-icon: jest
 
+      - name: Bump package version
+        id: version
+        uses: phips28/gh-action-bump-version@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          target-branch: main
+
+      - name: Create new GitHub Release
+        uses: ncipollo/release-action@v1.14.0
+        with:
+          tag: ${{ steps.version.outputs.newTag }}
+          generateReleaseNotes: true
+
       - name: Deploy to Vercel
         run: curl -X POST ${{ secrets.VERCEL_DEPLOY_PROD_HOOK }}
