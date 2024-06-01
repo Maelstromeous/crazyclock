@@ -1,7 +1,6 @@
 name: CI PR
 on:
   pull_request:
-    types: [opened, reopened]
 jobs:
   build:
     runs-on: ubuntu-latest
