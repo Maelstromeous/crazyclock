@@ -4,7 +4,7 @@ This project is to track the amount of time between two love birds meeting each 
 ## Technologies
 - [Nuxt 3](https://nuxt.com/docs/getting-started/introduction) - Frontend framework.
 - [Jest](https://jestjs.io/) - Tests.
-- [Vercel](https://vercel.com/) - Used to deploy the project and host the frontend, saves me having a full on web server to host it.
+- [Vercel](https://vercel.com/) - Used to deploy the project and host the frontend, saves me having a full on web server to host it!
 
 ## Setup
 Install package managers, pay attention to the .zshrc / .bashrc stuff brew tells you to add:
