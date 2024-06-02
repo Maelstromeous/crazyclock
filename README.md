@@ -1,5 +1,5 @@
 # CrazyClock!
-This project is to track the amount of time between two love birds meeting each other next. It brings a whole new level to clock watching!
+This project is to track the amount of time between two love birds meeting each other next! It brings a whole new level to clock watching!
 
 ## Technologies
 - [Nuxt 3](https://nuxt.com/docs/getting-started/introduction) - Frontend framework.
