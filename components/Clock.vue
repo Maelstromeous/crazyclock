@@ -7,7 +7,7 @@
       {{ startDate.toLocaleString() }} ➡️ {{ endDate.toLocaleString() }}
     </p>
     <div
-      v-if="!future"
+      v-if="!future && !previous"
       ref="bar"
       class="bg-black rounded-md mb-2 text-white flex bg-gradient-to-r via-green-600 from-red-600 to-blue-600"
       style="height: 30px"
@@ -17,7 +17,7 @@
       </div>
       <div ref="blackBar" class="h-full bg-black rounded-tr-md rounded-br-md transition-all ease-out duration-1000" :style="blackBarProps" />
     </div>
-    <div class="text-center text-amber-400 font-bold">
+    <div v-if="!previous" class="text-center text-amber-400 font-bold">
       {{ clockText }}
     </div>
     <div v-if="now < startDate" class="text-center text-white mt-2">
@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts" setup>
-/* eslint-disable vue/no-setup-props-destructure */
+
 import { differenceInMilliseconds } from 'date-fns'
 import { UTCDateMini } from '@date-fns/utc'
 import { onMounted, onUnmounted, ref } from '#imports'
@@ -38,12 +38,14 @@ const props = defineProps<{
   name: string;
   startDate: UTCDateMini
   endDate: UTCDateMini
+  previous?: boolean;
 }>()
 
 const name = props.name
 const startDate = props.startDate
 const endDate = props.endDate
 const now = new UTCDateMini()
+const previous = props.previous ?? false
 let future = false
 const barProps = ref({
   width: '0%',
