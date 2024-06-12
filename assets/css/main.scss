@@ -2,8 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
+html {
   @apply bg-gray-700;
+  font-family: 'Roboto', serif;
+  font-weight: 400;
 }
 
 table {

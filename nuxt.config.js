@@ -6,7 +6,7 @@ const pkgPath = resolve(__dirname, 'package.json')
 const pkg = JSON.parse(readFileSync(pkgPath, 'utf8'))
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
-export default {
+export default defineNuxtConfig({
   plugins: [{ src: '~/plugins/vercel.ts', mode: 'client' }],
   app: {
     head: {
@@ -28,4 +28,4 @@ export default {
       autoprefixer: {},
     },
   },
-}
+})
