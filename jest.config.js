@@ -5,4 +5,4 @@ module.exports = {
   coverageDirectory: 'coverage',
   coverageReporters: ['json-summary', 'text', 'lcov'],
   transformIgnorePatterns: ['node_modules/(?!(nuxt3|unenv))'],
-};
+}
