@@ -14,7 +14,7 @@
     >
       <div
         ref="fillBar"
-        class="h-full flex rounded-tl-md rounded-bl-md border-r-white transition-all ease-out duration-1000"
+        class="h-full flex shrink-0 rounded-tl-md rounded-bl-md border-r-white transition-all ease-out duration-1000"
         :style="barProps"
       >
         <span class="m-auto">{{ fillText }}</span>
@@ -40,7 +40,7 @@
 import { differenceInMilliseconds } from 'date-fns'
 import { UTCDateMini } from '@date-fns/utc'
 import { onMounted, onUnmounted, ref } from '#imports'
-import { calculateDateString } from '~/lib/DateCalculations'
+import { calculateDateString } from '../lib/DateCalculations'
 
 const props = defineProps<{
   name: string
@@ -73,6 +73,7 @@ if (now < props.startDate) {
 }
 
 const tickTock = (showEnd = false) => {
+  console.log('ticking')
   // Wipe the timer if it already exists
   if (timer) {
     clearInterval(timer)

@@ -1,8 +1,10 @@
 <template>
   <SpeedInsights />
   <div id="app" class="w-full max-w-xl m-auto px-4">
-    <h1 class="text-4xl text-purple-600 my-4 text-center">CrazyClock!</h1>
-    <p class="m-auto mt-0 mb-4 text-center">Version: {{ version }}</p>
+    <h1 class="text-4xl text-purple-600 mt-4 text-center">CrazyClock!</h1>
+    <p class="text-sm m-auto mt-0 mb-4 text-center text-gray-500">
+      Version: {{ version }}
+    </p>
     <Clock
       v-for="clock in clocks"
       :key="clock.name"
@@ -44,6 +46,11 @@ const version = config.public.appVersion
 // REMEMBER: UTCDateMini month index is zero indexed, so 0 = Jan, 1 = Feb, 11 = Dec etc, bonkers I know
 const clocks = [
   {
+    name: 'The Long Wait',
+    startDate: new UTCDateMini(2024, 4, 11, 20, 0, 0),
+    endDate: new UTCDateMini(2024, 6, 9, 19, 0, 0),
+  },
+  {
     name: 'Happy May',
     startDate: new UTCDateMini(2024, 3, 6, 15, 0, 0),
     endDate: new UTCDateMini(2024, 4, 3, 20, 45, 0),
@@ -55,10 +62,3 @@ const clocks = [
   },
 ]
 </script>
-
-<style lang="scss">
-body {
-  font-family: 'Roboto', serif;
-  font-weight: 400;
-}
-</style>
