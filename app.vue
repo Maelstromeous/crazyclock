@@ -1,10 +1,14 @@
 <template>
   <SpeedInsights />
   <div id="app" class="w-full max-w-xl m-auto px-4">
-    <h1 class="text-4xl text-purple-600 mt-4 text-center">CrazyClock!</h1>
-    <p class="text-sm m-auto mt-0 mb-4 text-center text-gray-500">
-      Version: {{ version }}
-    </p>
+    <div class="flex flex-col items-center text-center my-4">
+      <h1 class="text-4xl text-purple-600">CrazyClock!</h1>
+      <span
+        class="mt-1 w-auto bg-gray-800 rounded-md px-2 py-1 text-xs font-medium text-gray-400 ring-1 ring-inset ring-gray-600"
+      >
+        v{{ version }}
+      </span>
+    </div>
     <Clock
       v-for="clock in clocks"
       :key="clock.name"
