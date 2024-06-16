@@ -41,7 +41,7 @@
     "lint-staged": "^15.0.0",
     "nuxt": "^3.4.3",
     "postcss": "^8.4.23",
-    "postcss-import": "^15.1.0",
+    "postcss-import": "^16.0.0",
     "pre-commit": "^1.2.2",
     "prettier": "^3.2.5",
     "sass": "^1.62.0",
