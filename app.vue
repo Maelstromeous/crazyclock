@@ -52,7 +52,7 @@ const clocks = [
   {
     name: 'The Long Wait',
     startDate: new UTCDateMini(2024, 4, 11, 20, 0, 0),
-    endDate: new UTCDateMini(2024, 5, 29, 20, 45, 0),
+    endDate: new UTCDateMini(2024, 6, 1, 20, 45, 0),
   },
   {
     name: 'Happy May',
