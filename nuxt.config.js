@@ -14,6 +14,7 @@ export default defineNuxtConfig({
       viewport: 'width=device-width, initial-scale=1',
     },
   },
+  pages: true,
   runtimeConfig: {
     public: {
       appVersion: pkg.version,
@@ -28,4 +29,14 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  nitro: {
+    devProxy: {
+      '/api': {
+        target: process.env.API_URL || 'http://localhost:3000/api',
+        changeOrigin: true,
+        pathRewrite: { '^/api': '' },
+      },
+    },
+  },
+  serverMiddleware: [{ path: '/api', handler: '~/server/middleware/api.ts' }],
 })
