@@ -50,6 +50,11 @@ const version = config.public.appVersion
 // REMEMBER: UTCDateMini month index is zero indexed, so 0 = Jan, 1 = Feb, 11 = Dec etc, bonkers I know
 const clocks = [
   {
+    name: 'New Beginnings',
+    startDate: new UTCDateMini(2024, 7, 29, 20, 0, 0),
+    endDate: new UTCDateMini(2024, 8, 26, 20, 45, 0),
+  },
+  {
     name: 'The Long Wait',
     startDate: new UTCDateMini(2024, 4, 11, 20, 0, 0),
     endDate: new UTCDateMini(2024, 6, 1, 20, 45, 0),
