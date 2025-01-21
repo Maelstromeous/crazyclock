@@ -52,7 +52,7 @@ const clocks = [
   {
     name: 'Mitbewohner',
     startDate: new UTCDateMini(2024, 9, 4, 20, 45, 0),
-    endDate: new UTCDateMini(2024, 9, 18, 20, 45, 0)
+    endDate: new UTCDateMini(2024, 9, 18, 20, 45, 0),
   },
   {
     name: 'New Beginnings',
